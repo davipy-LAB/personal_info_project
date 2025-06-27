@@ -129,4 +129,23 @@ class PersonListView(ListView):
     template_name = 'person_list.html'
     context_object_name = 'people'
 
+from django.shortcuts import render
+from .forms import FeedbackForm
+
+def feedback_view(request):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            satisfacao = form.cleaned_data['satisfacao']
+            return render(request, 'agradecimento.html', {
+                'nome': nome,
+                'satisfacao': satisfacao
+            })
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'feedback.html', {'form': form})
+
+
 
