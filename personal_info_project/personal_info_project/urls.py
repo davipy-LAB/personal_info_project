@@ -14,6 +14,8 @@ urlpatterns = [
     path('sum/', views.CalcularSumView.as_view(), name='calcular_sum'),
     path('goodbye/', views.GoodbyeView.as_view(), name='goodbye'),
     path('about/', about_view, name='about'),
-    path('people/', people_view, name='people')
-
+    path('people/', people_view, name='people'),
+    path('people/create/', views.PersonCreateView.as_view(), name='person_create'),
+    path('people/update/<int:pk>/', views.PersonUpdateView.as_view(), name='person_update'),
+    path('people/list/', views.PersonListView.as_view(), name='people_list'),
 ]
