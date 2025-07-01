@@ -147,5 +147,14 @@ def feedback_view(request):
 
     return render(request, 'feedback.html', {'form': form})
 
+from django.shortcuts import render
+from .models import Person
+
+def filter_by_gender_view(request):
+    gender = request.GET.get('gender')  # Ex: female
+    people = Person.objects.all()
+    if gender:
+        people = people.filter(gender=gender)
+    return render(request, 'people_filtered.html', {'people': people})
 
 

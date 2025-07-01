@@ -4,10 +4,13 @@ from .models import Person
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ['name', 'age']
+        fields = ['name', 'age', 'email', 'phone', 'gender']  # Incluindo todos os campos
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Digite seu nome'}),
             'age': forms.NumberInput(attrs={'placeholder': 'Digite sua idade'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Digite seu e-mail'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'Digite seu telefone'}),
+            'gender': forms.Select(),
         }
 
     def clean_name(self):
@@ -15,12 +18,31 @@ class PersonForm(forms.ModelForm):
         if len(name) < 3:
             raise forms.ValidationError("O nome deve ter pelo menos 3 caracteres.")
         return name
-
+    
     def clean_age(self):
         age = self.cleaned_data['age']
         if age > 150:
             raise forms.ValidationError("A idade não pode ser maior que 150.")
         return age
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if '@' not in email:
+            raise forms.ValidationError("O e-mail deve conter um '@'.")
+        return email
+    
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if not phone.isdigit() or len(phone) < 10:
+            raise forms.ValidationError("O telefone deve conter apenas números e ter pelo menos 10 dígitos.")
+        return phone
+    
+    def clean_gender(self):
+        gender = self.cleaned_data['gender']
+        if gender not in ['male', 'female', 'other']:
+            raise forms.ValidationError("O sexo deve ser 'male', 'female' ou 'other'.")
+        return gender
+    
     
 from django import forms
 

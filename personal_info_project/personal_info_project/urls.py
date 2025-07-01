@@ -20,4 +20,5 @@ urlpatterns = [
     path('people/update/<int:pk>/', views.PersonUpdateView.as_view(), name='person_update'),
     path('people/list/', views.PersonListView.as_view(), name='people_list'),
     path('feedback/', feedback_view, name='feedback'),
+    path('person/', views.filter_by_gender_view, name='filter_by_gender'),
 ]
