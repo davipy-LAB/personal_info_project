@@ -68,3 +68,15 @@ class FeedbackForm(forms.Form):
         ('Ruim', 'Ruim'),
     ]
     satisfacao = forms.ChoiceField(label="Satisfação", choices=SATISFACAO_CHOICES)
+
+from django import forms
+from .models import ContactLog
+
+# forms.py
+from django import forms
+from .models import ContactLog
+
+class ContactLogForm(forms.ModelForm):
+    class Meta:
+        model = ContactLog
+        fields = ['person', 'message']  # Inclua todos os campos obrigatórios

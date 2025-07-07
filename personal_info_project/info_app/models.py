@@ -14,3 +14,14 @@ class Person(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.age} anos)"
+    
+from django.db import models
+
+# models.py
+from django.db import models
+from .models import Person
+
+class ContactLog(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

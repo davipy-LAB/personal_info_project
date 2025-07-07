@@ -158,3 +158,25 @@ def filter_by_gender_view(request):
     return render(request, 'people_filtered.html', {'people': people})
 
 
+from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+from django.urls import reverse_lazy
+from .models import ContactLog
+from .forms import ContactLogForm
+
+from django.views.generic.edit import CreateView
+from .models import ContactLog
+
+
+
+class ContactLogCreateView(CreateView):
+    model = ContactLog
+    form_class = ContactLogForm
+    template_name = 'contactlog_form.html'
+    success_url = '/contact-log/list/'
+
+
+class ContactLogListView(ListView):
+    model = ContactLog
+    template_name = 'contactlog_list.html'
+    context_object_name = 'logs'

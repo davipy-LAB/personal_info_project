@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Log de Contato</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: #e7e7e7;
+        }
+        #tsparticles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 24px 32px;
+            background: #312e2e;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #626266;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background: #23272f;
+            color: #e7e7e7;
+        }
+        input::placeholder, textarea::placeholder {
+            color: #b0b4bc;
+            opacity: 1;
+        }
+        .errorlist {
+            color: #b00020;
+            margin: 4px 0 0 0;
+            font-size: 0.95em;
+        }
+        button[type="submit"] {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover, button[type="submit"]:focus {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div id="tsparticles"></div>
+    <div class="container">
+        <h1>Novo Log de Contato</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="errorlist">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+      tsParticles.load("tsparticles", {
+        particles: {
+          number: { value: 80 },
+          color: { value: "#ffffff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5 },
+          size: { value: 3 },
+          move: { enable: true, speed: 1 },
+          links: {
+            enable: true,
+            color: "#ffffff",
+            distance: 150,
+            opacity: 0.4,
+            width: 1
+          }
+        },
+        interactivity: {
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" }
+          },
+          modes: {
+            repulse: { distance: 100 },
+            push: { quantity: 4 }
+          }
+        },
+        background: {
+          color: "#0d1117"
+        }
+      });
+    </script>
+</body>
+</html>
